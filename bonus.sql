@@ -18,3 +18,7 @@ join accounts a on c.customer_id = a.customer_id
 group by c.customer_id, c.full_name
 order by total_balance desc;
 
+-- L'ajout d'une colonne created_at dans Accounts :
+alter table accounts
+add column created_at datetime;
+
