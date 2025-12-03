@@ -87,3 +87,27 @@ from accounts a
 join customer c on a.customer_id = c.customer_id
 join advisor adv on a.advisor_id = adv.advisor_id;
 
+
+													-- SECTION 5 : REQUÊTES AVEC TRI ET LIMITE
+                                                    
+-- 18. Affichage des comptes triés par balance (ordre croissant):
+select * from accounts
+order by balance asc;
+
+-- 19. Affichage des transactions triées par amount (ordre décroissant):
+select * from transactions
+order by amount desc;
+
+-- 20. Affichage des 5 plus grandes transactions:
+select * from transactions
+order by amount asc limit 5;
+
+-- 21. Affichage de toutes les transactions triées par transaction_date décroissante:
+select * from transactions
+order by transaction_date desc;
+
+-- 22. Affichage des 3 dernières transactions:
+select * from transactions
+order by transaction_date desc limit 3;
+
+
