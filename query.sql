@@ -54,11 +54,6 @@ where transaction_type = 'credit';
 select * from transactions
 where account_id = 1;
 
--- 13. Affichage des customers ayant un account géré par l’advisor_id = 2 :
-SELECT DISTINCT c.*
-FROM customer c
-JOIN accounts a ON c.customer_id = a.customer_id
-WHERE a.advisor_id = 2;
 
 -- 14. Affichage des comptes ayant account_type = "Savings"  :
 select * from accounts
@@ -71,4 +66,24 @@ where amount >= 500;
 -- 16. Affichage des transactions avec un 100 <= amount <= 1000 :
 select * from transactions
 where amount > 100 and amount < 1000;
+
+
+													-- SECTION 4 : REQUÊTES AVEC JOINTURES
+                                                    
+-- 13. Affichage des customers ayant un account géré par l’advisor_id = 2 :
+SELECT DISTINCT c.*
+FROM customer c
+JOIN accounts a ON c.customer_id = a.customer_id
+WHERE a.advisor_id = 2;
+
+-- 17. Affichage de comptes du customer_id = 1:
+select * from accounts
+left join customer on accounts.customer_id = customer.customer_id
+where accounts.customer_id = 1 ;
+
+-- 23. Affichage de chaque compte avec le nom du customer et le nom de l’advisor :
+select a.*, c.full_name as client_nom, adv.full_name as adviseur_nom
+from accounts a
+join customer c on a.customer_id = c.customer_id
+join advisor adv on a.advisor_id = adv.advisor_id;
 
