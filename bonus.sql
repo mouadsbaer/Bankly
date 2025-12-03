@@ -22,3 +22,24 @@ order by total_balance desc;
 alter table accounts
 add column created_at datetime;
 
+-- Le total des montants debit et credit par account :
+
+SELECT 
+    a.account_id,
+    c.full_name as client,
+    a.account_type,
+    COUNT(t.transaction_id) as nb_transactions,
+    SUM(CASE WHEN t.transaction_type IN ('DEPOSIT', 'CREDIT') THEN t.amount ELSE 0 END) as total_credits,
+    SUM(CASE WHEN t.transaction_type IN ('WITHDRAWAL', 'DEBIT') THEN t.amount ELSE 0 END) as total_debits,
+    SUM(CASE 
+        WHEN t.transaction_type IN ('DEPOSIT', 'CREDIT') THEN t.amount 
+        ELSE -t.amount 
+    END) as solde_net,
+    a.balance as solde_actuel
+FROM accounts a
+JOIN customer c ON a.customer_id = c.customer_id
+LEFT JOIN transactions t ON a.account_id = t.account_id
+GROUP BY a.account_id, c.full_name, a.account_type, a.balance
+ORDER BY a.account_id;
+
+-- 
